@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  	<title>Result</title>
+	<link rel="stylesheet" href="static/css/style.css">
+	<script>
+        var filename = {{ filename }}
+        var metric_value = {{ metric_value }}
+        var metric_type = {{ metric_type }}
+    </script>
+</head>	
+   <body>
+	   <div class="container">	
+		   <h1>Training complete!</h1> <br>
+		   <h3>{{ metric_type }}: {{metric_value}}</h3>
+		   <form action="/model/{{filename}}" method="POST">
+			   	<div>
+					<button type="submit" name="submit">Download model</button>
+				</div>
+			</form>
+			<br>
+
+			<form action="/formSubmit2" method="POST" enctype = "multipart/form-data">
+				<input type="hidden" name="job_name" value="{{filename}}">
+				<input type="file" name="to_predict" accept=".data, .csv, .dat" required>
+				<button type="submit" name="submit">Get predictions</button>
+			</form>
+
+			<br>
+			<form action="/jobFinished" method="POST">
+			   	<div>
+			   		<input type="hidden" name="job_name" value="{{filename}}">
+					<button type="submit" name="submit">Train another model</button>
+				</div>
+			</form>
+			
+		</div>
+   </body>
+</html>

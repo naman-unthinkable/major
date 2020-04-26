@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ML-Interface</title>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+	<div class="container">
+		<h4>Train a new model on your data!</h4>
+		<form method="POST" action='formSubmit' enctype = "multipart/form-data">
+			<!-- <h4>Name of Training Job</h4> -->
+		    	<div class="training-job" style="display: flex;
+    				flex-direction: column;">
+		        	<input type="text" placeholder="Job Name" name="job_name" required/>
+		    		<div>
+		        		<select name="train_type">
+		            		<option value="reg">Regression</option>
+		            		<option value="cla">Classification</option>
+	        			</select>
+	        		</div>
+	        		<div>
+		        	<select name="algorithm">
+			            <option value="svm">SVM</option>
+			            <option value="rf">Random Forest</option>
+			            <option value="dt">Decision Tree</option>
+		        	</select>
+	        		</div>
+	        	</div>
+	        	<input type="file" name="file" accept=".data, .csv, .dat" required>
+	        	<div class="training-job" style="display: flex;
+    				flex-direction: column;">
+		        	<input type="number" placeholder="Y column (0 indexed)" name="y_col" min='0' required />
+		        </div>		
+		    	<div>
+	        		<select name="header_row">
+		            	<option value="">No header</option>
+		            	<option value="0">Top</option>
+	        		</select>
+	        	</div>
+	        	<div>
+		    		<button type="submit" name="submit" onsubmit="disp()">Train</button>
+		    	</div>
+		  </form>
+	</div>
+	<br><br>	
+	<div class="container">
+		<h4>Or upload your model</h4>
+		<form method="POST" action='form_Submit1' enctype = "multipart/form-data">
+			<input type="text" placeholder="Job Name" name="job_name" required/>
+			Model:
+			<input type="file" name="model" accept=".pkl" required>
+			Test Data:
+			<input type="file" name="to_predict" accept=".data, .csv, .dat" required>
+			<div>
+		    	<button type="submit" name="submit" onsubmit="disp()">Get Predictions</button>
+		    </div>
+		</form>
+	</div>
+	<script type="text/javascript">
+		function disp()
+		{
+			document.getElementsByClassName('container')[0].style.display = 'none';
+		}
+	</script>
+</body>
+</html>
